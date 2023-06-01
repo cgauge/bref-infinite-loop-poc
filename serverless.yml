@@ -1,0 +1,23 @@
+service: app
+
+provider:
+    name: aws
+    region: eu-west-1
+    runtime: provided.al2
+    deploymentMethod: direct # fastest deployment method
+
+plugins:
+    - ./vendor/bref/bref
+
+functions:
+    hello:
+        handler: index.php
+        description: ''
+        timeout: 3
+        layers:
+            - "arn:aws:lambda:eu-west-1:209497400698:layer:php-81:23"
+
+# Exclude files from deployment
+package:
+    patterns:
+        - '!tests/**'
